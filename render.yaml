@@ -1,0 +1,39 @@
+services:
+  - type: web
+    name: nightscout-josechu-2026
+    runtime: docker
+    repo: https://github.com/josechubg/cgm-remote-monitor-1
+    branch: nightscout-2026
+    region: frankfurt
+    plan: 0.5c-512mb
+    numInstances: 1
+    autoDeployTrigger: "off"
+    dockerfilePath: ./deployment2026/Dockerfile
+    dockerContext: ./deployment2026
+    envVars:
+      - key: PORT
+        value: "1337"
+      - key: NIGHTSCOUT_HOSTNAME
+        value: "0.0.0.0"
+      - key: MONGODB_USER
+        value: nightscout_app_2026
+      - key: MONGODB_HOST
+        value: nightscout-2026.b4iewwz.mongodb.net
+      - key: MONGODB_DATABASE
+        value: nightscout
+      - key: MONGODB_PASSWORD
+        sync: false
+      - key: API_SECRET
+        generateValue: true
+      - key: AUTH_DEFAULT_ROLES
+        value: denied
+      - key: ENABLE
+        value: careportal dbsize connect
+      - key: CONNECT_SOURCE
+        value: dexcomshare
+      - key: CONNECT_SHARE_REGION
+        value: ous
+      - key: CONNECT_SHARE_ACCOUNT_NAME
+        sync: false
+      - key: CONNECT_SHARE_PASSWORD
+        sync: false
